@@ -184,7 +184,8 @@
             user-select: none;
             display: flex;
             justify-content: space-between;
-            max-width: 1200px;
+            width: 1200px;
+            min-width: 990px;
             margin: 0 auto;
             .left {
                 span {
@@ -255,6 +256,7 @@
         .content {
             display: flex;
             width: 1200px;
+            min-width: 990px;
             margin: 0 auto;
             .logo {
                 display: flex;
@@ -332,9 +334,12 @@
             display: flex;
             width: 1200px;
             margin: 0 auto;
+            min-width: 990px;
             .menu {
                 background: url('../assets/image/detail.gif') no-repeat 0 -117px;
-                padding: 0 65px;
+                // padding: 0 65px;
+                width: 230px;
+                text-align: center;
                 white-space: nowrap;
             }
             .nav {
