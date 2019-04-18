@@ -1,7 +1,22 @@
 <template>
-  <div>
+  <div class="page">
       <div class="page-banner">
         <MyCarousel :dataList="bannerList"></MyCarousel>
+      </div>
+      <div class="page-menu">
+        <div class="menu-box">
+          <div class="menu">
+            <div class="menu-item" v-for="(item,idx) in menuList" :key="idx">
+              <div class="title">
+                <h5>{{item.kind}}</h5>
+                <span></span>
+              </div>
+              <div class="list">
+                <span :class="{'hot': one.hot}" v-for="(one,key) in item.list" :key="key">{{one.name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
   </div>
 </template>
@@ -13,7 +28,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      bannerList: []
+      bannerList: [],
+      menuList: []
     }
   },
   components: {MyCarousel},
@@ -36,6 +52,87 @@ export default {
           bgColor: '#feeaf3',
           url: require('../assets/image/banner5.jpg')
         }
+      ];
+
+      this.menuList = [
+        {
+          kind: '面部护理',
+          list: [
+            {name: '洗面奶', hot: false },
+            {name: '爽肤水', hot: false },
+            {name: '乳液', hot: false },
+            {name: '防晒', hot: false },
+            {name: '面膜', hot: false },
+            {name: '精华', hot: true },
+            {name: '眼霜', hot: false },
+            {name: '卸妆', hot: false },
+            {name: 'T区护理', hot: false }
+          ]
+        }, {
+          kind: '彩妆',
+          list: [
+            {name: 'BB霜', hot: false },
+            {name: '粉底液', hot: false },
+            {name: '妆前乳', hot: false },
+            {name: '隔离', hot: false },
+            {name: '唇膏', hot: true },
+            {name: '睫毛膏', hot: false },
+            {name: '眼线', hot: false },
+            {name: '指甲油', hot: false }
+          ]
+        }, {
+          kind: '香氛',
+          list: [
+            {name: '女士香水', hot: false },
+            {name: '男士香水', hot: false },
+            {name: '香水套装', hot: true },
+            {name: '中性香水', hot: false },
+            {name: '限量版', hot: false }
+          ]
+        }, {
+          kind: '身体护理',
+          list: [
+            {name: '香皂', hot: false },
+            {name: '沐浴露', hot: false },
+            {name: '身体乳', hot: true },
+            {name: '瘦身霜', hot: false },
+            {name: '脱毛膏', hot: false },
+            {name: '美胸霜', hot: false },
+            {name: '颈霜', hot: false },
+            {name: '护手霜', hot: true }
+          ]
+        }, {
+          kind: '头发护理',
+          list: [
+            {name: '洗发水', hot: false },
+            {name: '护发素', hot: false },
+            {name: '发膜', hot: true },
+            {name: '修护精华', hot: false },
+            {name: '防脱发', hot: false },
+            {name: '染发', hot: false },
+            {name: '套装', hot: false }
+          ]
+        }, {
+          kind: '男士专区',
+          list: [
+            {name: '面部护肤', hot: true },
+            {name: '男士防晒', hot: false },
+            {name: '剃须护理', hot: false },
+            {name: '洗发护发', hot: false },
+            {name: '沐浴止汗', hot: false },
+            {name: '男士精品', hot: false }
+          ]
+        }, {
+          kind: '美容工具',
+          list: [
+            {name: '化妆包', hot: false },
+            {name: '购物袋', hot: false },
+            {name: '化妆刷', hot: false },
+            {name: '彩妆工具', hot: false },
+            {name: '护肤工具', hot: false },
+            {name: '美体工具', hot: false }
+          ]
+        }
       ]
     }
   },
@@ -46,9 +143,63 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import '../assets/style/index';
+
+  .page {
+    position: relative;
+  }
+
   .page-banner {
     // background: #2a1842;
     height: 400px;
     min-width: 990px;
+  }
+  .page-menu {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+    .menu-box {
+      width: 1200px;
+      height: 100%;
+      margin: 0 auto;
+      .menu {
+        width: 224px;
+        background: #f8f8f8;
+        .menu-item {
+          padding: 20px 16px 8px;
+          border-bottom: solid 1px #e7e7e7;
+          .title {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            h5 {
+              font-size: .85rem;
+              color: #333333;
+            }
+            span {
+              display: block;
+              width: 6px;
+              height: 9px;
+              background: url('../assets/image/detail.gif') no-repeat -310px -30px;
+            }
+          }
+          .list {
+            display: flex;
+            flex-wrap: wrap;
+            span {
+              display: block;
+              padding: 5px 10px 0 0;
+              color: #666;
+              &.hot {
+                color: $hot;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 </style>

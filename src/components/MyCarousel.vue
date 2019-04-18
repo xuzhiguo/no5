@@ -104,6 +104,7 @@
                     margin-right: 10px;
                     border-radius: 50%;
                     cursor: pointer;
+                    box-shadow: 0 0 3px #8e8888;
                     &.active {
                         background: #00b5ff;
                         color: #fff;
