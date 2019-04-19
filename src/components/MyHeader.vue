@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="header-nav">
+        <div class="header-nav" id="headerNav" :class="{'top': isFixed}">
             <div class="content">
                 <div class="menu">全部商品分类</div>
                 <div class="nav">
@@ -94,6 +94,7 @@
                 headMenuShow: false,
                 qrcodeShow: false,
                 showCarDetail: false,
+                isFixed: false,
                 headMenu: [],
                 headMenuText: '我的账户',
                 hotQueryList: [],
@@ -185,10 +186,27 @@
             },
             selectHeadMenu(data) {
                 this.headMenuText = data.name;
+            },
+            handleScroll () {  
+                this.$nextTick(() => {
+                    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;  
+                    // let headerTop = document.getElementById("headerNav").offsetTop;
+                    if (scrollTop  > 700) { 
+                        this.isFixed = true;  
+                    } else {  
+                        this.isFixed = false;  
+                    }  
+                })	
             }
         },
         created() {
             this.init();
+        },
+        mounted() {
+            window.addEventListener('scroll', this.handleScroll);
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.handleScroll);
         }
     }
 </script>
@@ -238,6 +256,7 @@
                     .menu {
                         position: absolute;
                         padding: 5px 17px;
+                        z-index: 10000;
                         white-space: nowrap;
                         top: 0;
                         left: 0;
@@ -391,7 +410,7 @@
                     background: #fff;
                     border: solid 1px #dcdcdc;
                     .empty {
-                        line-height: 3;
+                        line-height: 2;
                         color: #666;
                     }
                 }
@@ -439,6 +458,12 @@
                     }
                 }
             }
+        }
+
+        &.top {
+            position: fixed;
+            top: 0;
+            z-index: 9999;
         }
     }
  
