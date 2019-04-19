@@ -39,16 +39,36 @@
                         <span v-for="(item,idx) in hotQueryList" :key="idx" :class="{'more-hot':item.more}">{{item.name}}</span>
                     </div>
                 </div>
-                <div class="qrcode-box">
-                    <div class="moblie-menu">
-                        
+                <div class="qrcode-box" @mouseover="qrcodeShow = true" @mouseout="qrcodeShow = false">
+                    <div class="moblie-menu" v-show="qrcodeShow">
+                        <div class="mobile-item">
+                            <img src="../assets/image/qrcode-app.png">
+                            <div class="info">
+                                <h5>app下载</h5>
+                                <p>
+                                    <a href="http://m.no5.com.cn/DownloadApp" class="android" target="_blank"></a>
+                                    <a href="http://itunes.apple.com/cn/app/id1116605773" class="ios" target="_blank"></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mobile-item">
+                            <img src="../assets/image/qrcode-gzh.jpg">
+                            <div class="info">
+                                <h5>关注微信公众号</h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="shop-car">
+                <div class="shop-car" @mousemove="showCarDetail = true" @mouseout="showCarDetail = false">
                     <div class="car-info">
                         购物车
                         <span>0</span>
                         件
+                    </div>
+                    <div class="car-detail" v-show="showCarDetail">
+                        <div class="empty">
+                                购物车中还没有商品，赶紧选购吧！
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,6 +92,8 @@
         data () {
             return {
                 headMenuShow: false,
+                qrcodeShow: false,
+                showCarDetail: false,
                 headMenu: [],
                 headMenuText: '我的账户',
                 hotQueryList: [],
@@ -299,24 +321,78 @@
                 }
             }
             .qrcode-box {
+                position: relative;
                 width: 80px;
                 height: 80px;
                 background: url('../assets/image/qrcode-app.png') no-repeat;
                 margin: 10px 72px;
+                .moblie-menu {
+                    position: absolute;
+                    left: -50px;
+                    border: 1px solid #999;
+                    background: #fff;
+                    width: 180px;
+                    padding: 5px;
+                    box-shadow: 3px 3px 5px #b8b8b8;
+                    z-index: 9999;
+                    .mobile-item {
+                        display: flex;
+                        border-bottom: 1px solid #ccc;
+                        h5 {
+                            line-height: 2;
+                            color: #333;
+                        }
+                        .android,
+                        .ios {
+                            display: inline-block;
+                            width: 25px;
+                            height: 25px;
+                            margin: 5px 5px 0 0;
+                            background-image: url('../assets/image/mobile-system.png');
+                        }
+                        .ios {
+                            background-position:  0 -26px;
+                        }
+                        &:last-of-type {
+                            border: none;
+                        }
+                    }
+                }
             }
             .shop-car {
                 position: relative;
                 margin: 20px 5px;
                 .car-info {
-                    line-height: 44px;
+                    position: relative;
+                    line-height: 43px;
                     width: 195px;
                     padding-left: 70px;
-                    height: 44px;
-                    background: url('../assets/image/detail.gif') no-repeat 0px -30px;
+                    height: 43px;
+                    background: url('../assets/image/detail.gif') no-repeat;
+                    background-position:  0 -30px;
+                    z-index: 10000;
                     color: #666;
                     span {
                         color: #ff1a3a;
                         font-weight: 700;
+                    }
+                }
+                &:hover .car-info {
+                    background-position: 0 -74px;
+                }
+
+                .car-detail {
+                    position: absolute;
+                    z-index: 9999;
+                    width: 290px;
+                    bottom: -28px;
+                    padding: 10px;
+                    right: 1px;
+                    background: #fff;
+                    border: solid 1px #dcdcdc;
+                    .empty {
+                        line-height: 3;
+                        color: #666;
                     }
                 }
             }
@@ -330,11 +406,11 @@
         line-height: 40px;
         color: #fff;
         font-size: 1rem;
+        min-width: 1200px;
         .content {
             display: flex;
             width: 1200px;
             margin: 0 auto;
-            min-width: 990px;
             .menu {
                 background: url('../assets/image/detail.gif') no-repeat 0 -117px;
                 // padding: 0 65px;
